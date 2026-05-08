@@ -4,10 +4,11 @@
 // forward declaration
 class board;
 enum color { white, black };
-//base class: piece
+//  base class: piece 
 class piece {
 protected:
     color piece_color;
+
 public:
     piece(color c) : piece_color(c) {}
     virtual ~piece() {}
@@ -18,7 +19,9 @@ public:
     virtual bool is_valid_move(board& b, int from_row, int from_col,
         int to_row, int to_col) = 0;
 };
-// piece subclasses
+
+//  piece subclasses 
+
 class pawn : public piece {
 public:
     pawn(color c) : piece(c) {}
@@ -34,6 +37,7 @@ public:
     bool is_valid_move(board& b, int from_row, int from_col,
         int to_row, int to_col) override;
 };
+
 class knight : public piece {
 public:
     knight(color c) : piece(c) {}
@@ -41,6 +45,7 @@ public:
     bool is_valid_move(board& b, int from_row, int from_col,
         int to_row, int to_col) override;
 };
+
 class bishop : public piece {
 public:
     bishop(color c) : piece(c) {}
@@ -48,6 +53,7 @@ public:
     bool is_valid_move(board& b, int from_row, int from_col,
         int to_row, int to_col) override;
 };
+
 class queen : public piece {
 public:
     queen(color c) : piece(c) {}
@@ -55,6 +61,7 @@ public:
     bool is_valid_move(board& b, int from_row, int from_col,
         int to_row, int to_col) override;
 };
+
 class king : public piece {
 public:
     king(color c) : piece(c) {}
@@ -63,7 +70,8 @@ public:
         int to_row, int to_col) override;
 };
 
-// board class
+//  board class
+
 class board {
 private:
     piece* squares[8][8];
@@ -83,6 +91,11 @@ public:
     bool is_legal_move(int from_row, int from_col, int to_row, int to_col, color turn);
     bool make_move(int from_row, int from_col, int to_row, int to_col, color turn);
 
+    // pawn promotion
+    bool needs_promotion(color turn) const;
+    void promote_pawn(int row, int col, char choice);
+
     void display();
 };
+
 #endif // CHESS_H
